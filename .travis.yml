@@ -6,7 +6,7 @@ before_install:
     - docker build -t hanhee/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    - docker run hanhee/docker-react npm run test -- --coverage
+    - docker run -e CI=true hanhee/react-test npm run test
 
 after_success:
     - docker build -t hanhee/multi-client ./client
@@ -18,4 +18,4 @@ after_success:
     - docker push hanhee/multi-client
     - docker push hanhee/multi-nginx
     - docker push hanhee/multi-server
-    - docker push hanhee/multi-worker
+    - docker push 
