@@ -1,0 +1,21 @@
+sudo: required
+services:
+    - docker
+before_install:
+    - gem install bundler --pre
+    - docker build -t hanhee/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true hanhee/docker-react npm run test
+
+after_success:
+    - docker build -t hanhee/multi-client ./client
+    - docker build -t hanhee/multi-nginx ./nginx
+    - docker build -t hanhee/multi-server ./server
+    - docker build -t hanhee/multi-worker ./worker
+    # Log in to the docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push hanhee/multi-client
+    - docker push hanhee/multi-nginx
+    - docker push hanhee/multi-server
+    - docker push hanhee/multi-worker
