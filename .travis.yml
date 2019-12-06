@@ -2,7 +2,8 @@ sudo: required
 services:
     - docker
 before_install:
-    - gem install bundler
+    - gem uninstall
+    - gem install bundler --pre
     - docker build -t hanhee/react-test -f ./client/Dockerfile.dev ./client
 
 script:
@@ -18,4 +19,4 @@ after_success:
     - docker push hanhee/multi-client
     - docker push hanhee/multi-nginx
     - docker push hanhee/multi-server
-    - docker push 
+    - docker push hanhee/multi-worker
