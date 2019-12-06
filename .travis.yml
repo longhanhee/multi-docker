@@ -14,7 +14,8 @@ after_success:
     - docker build -t hanhee/multi-server ./server
     - docker build -t hanhee/multi-worker ./worker
     # Log in to the docker CLI
-    - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD" docker.io    
+    - docker login -u $DOCKER_ID -p $DOCKER_PASSWORD docker.io  
+    - docker login  
     - docker push hanhee/multi-client
     - docker push hanhee/multi-nginx
     - docker push hanhee/multi-server
