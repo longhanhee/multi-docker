@@ -14,8 +14,7 @@ after_success:
     - docker build -t luhansmilex/multi-server ./server
     - docker build -t luhansmilex/multi-worker ./worker
     # Log in to the docker CLI
-    - docker login -u $DOCKER_ID -p $DOCKER_PASSWORD docker.io  
-    - docker login  
+    - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD" docker.io      
     - docker push luhansmilex/multi-client
     - docker push luhansmilex/multi-nginx
     - docker push luhansmilex/multi-server
