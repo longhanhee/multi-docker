@@ -20,7 +20,7 @@ after_success:
     - docker push luhansmilex/multi-server
     - docker push luhansmilex/multi-worker
 
-deploy:
+deploy:  
   provider: elasticbeanstalk
   region: "ap-southeast-1"
   app: "multi-docker"
@@ -32,3 +32,4 @@ deploy:
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key:
     secure: $AWS_SECRET_KEY
+    
