@@ -2,7 +2,7 @@ sudo: required
 services:
     - docker
 before_install:  
-    - gem install bundler --pre
+    - gem install bundler
     - docker build -t luhansmilex/react-test -f ./client/Dockerfile.dev ./client
 
 script:
@@ -19,3 +19,16 @@ after_success:
     - docker push luhansmilex/multi-nginx
     - docker push luhansmilex/multi-server
     - docker push luhansmilex/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-southeast-1"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-ap-southeast-1-525589461975"
+  bucket_path: "docker-multi"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
